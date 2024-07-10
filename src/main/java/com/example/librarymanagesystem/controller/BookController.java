@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/books")
 public class BookController {
 
+    private final BookService bookService;
+
     @Autowired
-    private BookService bookService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping("/{bookId}")
     public ResponseEntity<Book> getBook(@PathVariable int bookId) {
