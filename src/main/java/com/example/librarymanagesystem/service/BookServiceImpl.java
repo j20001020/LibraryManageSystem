@@ -1,5 +1,6 @@
 package com.example.librarymanagesystem.service;
 
+import com.example.librarymanagesystem.dto.BookDTO;
 import com.example.librarymanagesystem.model.Book;
 import com.example.librarymanagesystem.repository.interfaces.BookRepository;
 import com.example.librarymanagesystem.service.interfaces.BookService;
@@ -19,5 +20,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookById(int bookId) {
         return bookRepository.getBookById(bookId);
+    }
+
+    @Override
+    public int createBook(BookDTO bookDTO) {
+        return bookRepository.createBook(bookDTO);
     }
 }

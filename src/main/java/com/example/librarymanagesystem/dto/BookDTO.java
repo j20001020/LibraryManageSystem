@@ -1,12 +1,10 @@
-package com.example.librarymanagesystem.model;
+package com.example.librarymanagesystem.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Book {
-
-    private int bookId;
+public class BookDTO {
 
     private String title;
 
@@ -14,23 +12,11 @@ public class Book {
 
     private String imageUrl;
 
-    private int price;
+    private Integer price;
 
     private Date publishedDate;
 
-    private Date createdDate;
-
-    private Date lastModifiedDate;
-
     // getter and setter
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
 
     public String getTitle() {
         return title;
@@ -56,11 +42,11 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -70,22 +56,6 @@ public class Book {
 
     public void setPublishedDate(Date publishedDate) {
         this.publishedDate = publishedDate;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
     }
 }
 
