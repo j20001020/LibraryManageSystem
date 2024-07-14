@@ -30,12 +30,35 @@ public class BookController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<Book> createBook(@RequestBody BookDTO bookDTO) {
         int bookId = bookService.createBook(bookDTO);
 
         Book book = bookService.getBookById(bookId);
 
+
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
+    }
+
+    @PutMapping("/{bookId}")
+    public ResponseEntity<Book> updateBook(@PathVariable int bookId, @RequestBody BookDTO bookDTO) {
+        Book book = bookService.getBookById(bookId);
+
+        if (book == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        bookService.updateBook(bookId, bookDTO);
+
+        Book updatedBook = bookService.getBookById(bookId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedBook);
+    }
+
+    @DeleteMapping("/{bookId}")
+    public ResponseEntity<?> deleteBook(@PathVariable int bookId) {
+        bookService.deleteBook(bookId);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

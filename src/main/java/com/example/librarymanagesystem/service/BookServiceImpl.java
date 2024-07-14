@@ -26,4 +26,14 @@ public class BookServiceImpl implements BookService {
     public int createBook(BookDTO bookDTO) {
         return bookRepository.createBook(bookDTO);
     }
+
+    @Override
+    public void updateBook(int bookId, BookDTO bookDTO) {
+        bookRepository.updateBook(bookId, bookDTO);
+    }
+
+    @Override
+    public void deleteBook(int bookId) {
+        bookRepository.deleteBook(bookId);
+    }
 }

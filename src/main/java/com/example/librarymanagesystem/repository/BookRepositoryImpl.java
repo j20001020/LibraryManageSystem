@@ -66,4 +66,33 @@ public class BookRepositoryImpl implements BookRepository {
 
         return bookId;
     }
+
+    @Override
+    public void updateBook(int bookId, BookDTO bookDTO) {
+        String sql = "UPDATE book SET title = :title, author = :author, image_url = :imageUrl, price = :price, published_date = :publishedDate, " +
+                "last_modified_date = :lastModifiedDate WHERE book_id = :bookId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("bookId", bookId);
+
+        map.put("title", bookDTO.getTitle());
+        map.put("author", bookDTO.getAuthor());
+        map.put("imageUrl", bookDTO.getImageUrl());
+        map.put("price", bookDTO.getPrice());
+        map.put("publishedDate", bookDTO.getPublishedDate());
+
+        map.put("lastModifiedDate", new Date());
+
+        jdbcTemplate.update(sql, map);
+    }
+
+    @Override
+    public void deleteBook(int bookId) {
+        String sql = "DELETE FROM book WHERE book_id = :bookId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("bookId", bookId);
+
+        jdbcTemplate.update(sql, map);
+    }
 }

@@ -8,4 +8,8 @@ public interface BookService {
     Book getBookById(int bookId);
 
     int createBook(BookDTO bookDTO);
+
+    void updateBook(int bookId, BookDTO bookDTO);
+
+    void deleteBook(int bookId);
 }
