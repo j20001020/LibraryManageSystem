@@ -95,4 +95,17 @@ public class BookRepositoryImpl implements BookRepository {
 
         jdbcTemplate.update(sql, map);
     }
+
+    @Override
+    public List<Book> getAllBook() {
+        String sql = "SELECT book_id, title, author, image_url, price, published_date, created_date, last_modified_date FROM book";
+
+        List<Book> bookList = jdbcTemplate.query(sql, new BookRowMapper());
+
+        if (bookList.size() > 0) {
+            return bookList;
+        } else {
+            return null;
+        }
+    }
 }

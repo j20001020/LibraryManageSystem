@@ -7,6 +7,8 @@ import com.example.librarymanagesystem.service.interfaces.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -35,5 +37,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(int bookId) {
         bookRepository.deleteBook(bookId);
+    }
+
+    @Override
+    public List<Book> getAllBook() {
+        List<Book> bookList = bookRepository.getAllBook();
+
+        return bookList;
     }
 }
