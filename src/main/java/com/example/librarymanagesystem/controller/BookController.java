@@ -1,5 +1,6 @@
 package com.example.librarymanagesystem.controller;
 
+import com.example.librarymanagesystem.dto.ApiResponse;
 import com.example.librarymanagesystem.dto.BookDTO;
 import com.example.librarymanagesystem.model.Book;
 import com.example.librarymanagesystem.service.interfaces.BookService;
@@ -22,39 +23,39 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<Book> getBook(@PathVariable int bookId) {
+    public ResponseEntity<ApiResponse<Book>> getBook(@PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
 
         if (book != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(book);
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "Get a book by bookId", book));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Book>> getAllBook() {
+    public ResponseEntity<ApiResponse<List<Book>>> getAllBook() {
         List<Book> bookList = bookService.getAllBook();
 
         if (bookList != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(bookList);
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "Get all book", bookList));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @PostMapping("/")
-    public ResponseEntity<Book> createBook(@RequestBody BookDTO bookDTO) {
+    public ResponseEntity<ApiResponse<Book>> createBook(@RequestBody BookDTO bookDTO) {
         int bookId = bookService.createBook(bookDTO);
 
         Book book = bookService.getBookById(bookId);
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(200, "Create a book successfully", book));
     }
 
     @PutMapping("/{bookId}")
-    public ResponseEntity<Book> updateBook(@PathVariable int bookId, @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<ApiResponse<Book>> updateBook(@PathVariable int bookId, @RequestBody BookDTO bookDTO) {
         Book book = bookService.getBookById(bookId);
 
         if (book == null) {
@@ -65,13 +66,13 @@ public class BookController {
 
         Book updatedBook = bookService.getBookById(bookId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(updatedBook);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(200, "Update a book successfully", updatedBook));
     }
 
     @DeleteMapping("/{bookId}")
-    public ResponseEntity<?> deleteBook(@PathVariable int bookId) {
+    public ResponseEntity<ApiResponse<?>> deleteBook(@PathVariable int bookId) {
         bookService.deleteBook(bookId);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse<>(200, "Delete a book successfully", null));
     }
 }
