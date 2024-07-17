@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -20,29 +21,48 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getBookById(int bookId) {
-        return bookRepository.getBookById(bookId);
+    public Book getBookById(Integer bookId) {
+        Optional<Book> book = bookRepository.findById(bookId);
+
+        return book.orElse(null); // if the book does not exist, then return null
     }
 
     @Override
-    public int createBook(BookDTO bookDTO) {
-        return bookRepository.createBook(bookDTO);
+    public Integer createBook(BookDTO bookDTO) {
+        Book book = new Book();
+        mapDtoToBook(book, bookDTO);
+
+        bookRepository.save(book);
+
+        return book.getBookId();
     }
 
     @Override
-    public void updateBook(int bookId, BookDTO bookDTO) {
-        bookRepository.updateBook(bookId, bookDTO);
+    public void updateBook(Integer bookId, BookDTO bookDTO) {
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            mapDtoToBook(book, bookDTO);
+            bookRepository.save(book);
+        }
     }
 
     @Override
-    public void deleteBook(int bookId) {
-        bookRepository.deleteBook(bookId);
+    public void deleteBook(Integer bookId) {
+        bookRepository.deleteById(bookId);
     }
 
     @Override
     public List<Book> getAllBook() {
-        List<Book> bookList = bookRepository.getAllBook();
+        return bookRepository.findAll();
+    }
 
-        return bookList;
+    private void mapDtoToBook(Book book, BookDTO bookDTO) {
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(bookDTO.getAuthor());
+        book.setImageUrl(bookDTO.getImageUrl());
+        book.setPrice(bookDTO.getPrice());
+        book.setPublishedDate(bookDTO.getPublishedDate());
+        /* CreatedDate and ModifiedDate are created automatically by JPA */
     }
 }

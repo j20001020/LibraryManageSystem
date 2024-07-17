@@ -1,19 +1,9 @@
 package com.example.librarymanagesystem.repository.interfaces;
 
-import com.example.librarymanagesystem.dto.BookDTO;
 import com.example.librarymanagesystem.model.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-public interface BookRepository {
-
-    Book getBookById(int bookId);
-
-    int createBook(BookDTO bookDTO);
-
-    void updateBook(int bookId, BookDTO bookDTO);
-
-    void deleteBook(int bookId);
-
-    List<Book> getAllBook();
+@Repository
+public interface BookRepository extends JpaRepository<Book, Integer> {
 }

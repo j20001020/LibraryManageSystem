@@ -2,7 +2,6 @@ package com.example.librarymanagesystem.repository;
 
 import com.example.librarymanagesystem.dto.BookDTO;
 import com.example.librarymanagesystem.model.Book;
-import com.example.librarymanagesystem.repository.interfaces.BookRepository;
 import com.example.librarymanagesystem.rowmapper.BookRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class BookRepositoryImpl implements BookRepository {
+public class BookRepositoryImpl {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -26,8 +25,8 @@ public class BookRepositoryImpl implements BookRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public Book getBookById(int bookId) {
+//    @Override
+    public Book getBookById(Integer bookId) {
         String sql = "SELECT book_id, title, author, image_url, price, published_date, created_date, last_modified_date FROM book WHERE  book_id = :bookId";
 
         Map<String, Object> map = new HashMap<>();
@@ -42,7 +41,7 @@ public class BookRepositoryImpl implements BookRepository {
         }
     }
 
-    @Override
+//    @Override
     public int createBook(BookDTO bookDTO) {
         String sql = "INSERT INTO book(title, author, image_url, price, published_date, created_date, last_modified_date) " +
                 "VALUES (:title, :author, :imageUrl, :price, :publishedDate, :createdDate, :lastModifiedDate)";
@@ -67,8 +66,8 @@ public class BookRepositoryImpl implements BookRepository {
         return bookId;
     }
 
-    @Override
-    public void updateBook(int bookId, BookDTO bookDTO) {
+//    @Override
+    public void updateBook(Integer bookId, BookDTO bookDTO) {
         String sql = "UPDATE book SET title = :title, author = :author, image_url = :imageUrl, price = :price, published_date = :publishedDate, " +
                 "last_modified_date = :lastModifiedDate WHERE book_id = :bookId";
 
@@ -86,8 +85,8 @@ public class BookRepositoryImpl implements BookRepository {
         jdbcTemplate.update(sql, map);
     }
 
-    @Override
-    public void deleteBook(int bookId) {
+//    @Override
+    public void deleteBook(Integer bookId) {
         String sql = "DELETE FROM book WHERE book_id = :bookId";
 
         Map<String, Object> map = new HashMap<>();
@@ -96,7 +95,7 @@ public class BookRepositoryImpl implements BookRepository {
         jdbcTemplate.update(sql, map);
     }
 
-    @Override
+//    @Override
     public List<Book> getAllBook() {
         String sql = "SELECT book_id, title, author, image_url, price, published_date, created_date, last_modified_date FROM book";
 

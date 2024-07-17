@@ -23,7 +23,7 @@ public class BookController {
     }
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<ApiResponse<Book>> getBook(@PathVariable int bookId) {
+    public ResponseEntity<ApiResponse<Book>> getBook(@PathVariable Integer bookId) {
         Book book = bookService.getBookById(bookId);
 
         if (book != null) {
@@ -55,7 +55,7 @@ public class BookController {
     }
 
     @PutMapping("/{bookId}")
-    public ResponseEntity<ApiResponse<Book>> updateBook(@PathVariable int bookId, @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<ApiResponse<Book>> updateBook(@PathVariable Integer bookId, @RequestBody BookDTO bookDTO) {
         Book book = bookService.getBookById(bookId);
 
         if (book == null) {
@@ -70,7 +70,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{bookId}")
-    public ResponseEntity<ApiResponse<?>> deleteBook(@PathVariable int bookId) {
+    public ResponseEntity<ApiResponse<?>> deleteBook(@PathVariable Integer bookId) {
         bookService.deleteBook(bookId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse<>(200, "Delete a book successfully", null));
