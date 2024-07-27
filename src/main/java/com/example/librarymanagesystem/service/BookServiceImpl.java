@@ -32,14 +32,13 @@ public class BookServiceImpl implements BookService {
         Book book = new Book();
         mapDtoToBook(book, bookDTO);
 
-        bookRepository.save(book);
-
-        return book.getBookId();
+        return bookRepository.save(book).getBookId();
     }
 
     @Override
     public void updateBook(Integer bookId, BookDTO bookDTO) {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
+
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
             mapDtoToBook(book, bookDTO);
