@@ -1,9 +1,9 @@
 package com.example.librarymanagesystem.model;
 
+import com.example.librarymanagesystem.model.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
@@ -11,8 +11,9 @@ import java.util.Date;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@JsonPropertyOrder({"bookId", "title", "author", "imageUrl", "price", "publishedDate", "createdDate", "lastModifiedDate"})
 @Table(name = "book")
-public class Book {
+public class Book extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,16 +34,5 @@ public class Book {
 
     @Column(name = "published_date")
     private Date publishedDate;
-
-    @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date")
-    private Date createdDate;
-
-    @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_date")
-    private Date lastModifiedDate;
-
 }
 
