@@ -1,9 +1,8 @@
-package com.example.librarymanagesystem.service.interfaces;
+package com.example.librarymanagesystem.service;
 
 import com.example.librarymanagesystem.dto.BookDTO;
 import com.example.librarymanagesystem.model.Book;
 import com.example.librarymanagesystem.repository.interfaces.BookRepository;
-import com.example.librarymanagesystem.service.BookServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class BookServiceTest {
+class BookServiceImplTest {
 
     @Mock
     private BookRepository bookRepository;
